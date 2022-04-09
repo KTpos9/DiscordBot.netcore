@@ -11,7 +11,7 @@
           "lib/netstandard2.0/ConcurrentCollections.dll": {}
         }
       },
-      "DSharpPlus/4.1.0": {
+      "DSharpPlus/4.2.0-nightly-01105": {
         "type": "package",
         "dependencies": {
           "Emzi0767.Common": "2.6.2",
@@ -21,7 +21,8 @@
           "System.Net.Http": "4.3.4",
           "System.Net.WebSockets": "4.3.0",
           "System.Net.WebSockets.Client": "4.3.2",
-          "System.Runtime.InteropServices.RuntimeInformation": "4.3.0"
+          "System.Runtime.InteropServices.RuntimeInformation": "4.3.0",
+          "System.Threading.Channels": "5.0.0"
         },
         "compile": {
           "lib/netstandard2.0/DSharpPlus.dll": {}
@@ -30,10 +31,10 @@
           "lib/netstandard2.0/DSharpPlus.dll": {}
         }
       },
-      "DSharpPlus.CommandsNext/4.1.0": {
+      "DSharpPlus.CommandsNext/4.2.0-nightly-01105": {
         "type": "package",
         "dependencies": {
-          "DSharpPlus": "4.1.0",
+          "DSharpPlus": "4.2.0-nightly-01105",
           "Microsoft.Extensions.DependencyInjection": "5.0.1"
         },
         "compile": {
@@ -43,11 +44,11 @@
           "lib/netstandard2.0/DSharpPlus.CommandsNext.dll": {}
         }
       },
-      "DSharpPlus.Interactivity/4.1.0": {
+      "DSharpPlus.Interactivity/4.2.0-nightly-01105": {
         "type": "package",
         "dependencies": {
           "ConcurrentHashSet": "1.1.0",
-          "DSharpPlus": "4.1.0"
+          "DSharpPlus": "4.2.0-nightly-01105"
         },
         "compile": {
           "lib/netstandard2.0/DSharpPlus.Interactivity.dll": {}
@@ -56,10 +57,10 @@
           "lib/netstandard2.0/DSharpPlus.Interactivity.dll": {}
         }
       },
-      "DSharpPlus.Lavalink/4.1.0": {
+      "DSharpPlus.Lavalink/4.2.0-nightly-01091": {
         "type": "package",
         "dependencies": {
-          "DSharpPlus": "4.1.0"
+          "DSharpPlus": "4.2.0-nightly-01091"
         },
         "compile": {
           "lib/netstandard2.0/DSharpPlus.Lavalink.dll": {}
@@ -1198,6 +1199,15 @@
           "lib/netstandard1.3/System.Threading.dll": {}
         }
       },
+      "System.Threading.Channels/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Threading.Channels.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Threading.Channels.dll": {}
+        }
+      },
       "System.Threading.Tasks/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1262,56 +1272,55 @@
         "lib/netstandard2.0/ConcurrentCollections.xml"
       ]
     },
-    "DSharpPlus/4.1.0": {
-      "sha512": "s1QTvwMvbTTmIviOaVOyFRH2NAwW9IXMnCzevLrEFV6XFJ3ZnYrF2B03K6iA2U9uChUTZVOSNkhRNcPqqZHzCA==",
+    "DSharpPlus/4.2.0-nightly-01105": {
+      "sha512": "ANZWmxtuzJI8Xx0LdGIITiysKgGaUyqH3a/3+8hhxP6E4TIFmJtkv6iwdXpIQ8r43/7XvXJ5FUQqc3yktp1Jgg==",
       "type": "package",
-      "path": "dsharpplus/4.1.0",
+      "path": "dsharpplus/4.2.0-nightly-01105",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "dsharpplus.4.1.0.nupkg.sha512",
+        "dsharpplus.4.2.0-nightly-01105.nupkg.sha512",
         "dsharpplus.nuspec",
         "dsharpplus.png",
         "lib/netstandard2.0/DSharpPlus.dll",
         "lib/netstandard2.0/DSharpPlus.xml"
       ]
     },
-    "DSharpPlus.CommandsNext/4.1.0": {
-      "sha512": "4rxtz2pWEsJpPBjtnWEB6q5TmFlKLc7w934CQHS26Ylj85/9k+aYLW7e61TEcsd/+zLjUs7BF82YvlhGKImrZQ==",
+    "DSharpPlus.CommandsNext/4.2.0-nightly-01105": {
+      "sha512": "qDrYJVrd8eX1AIgdBvvfgDH7m29AHHctYZtHQxfKXiWZP/DvkpKrfQTpI4o0lL5LzijwMbBkuHCdqopH6AGEUQ==",
       "type": "package",
-      "path": "dsharpplus.commandsnext/4.1.0",
+      "path": "dsharpplus.commandsnext/4.2.0-nightly-01105",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "dsharpplus.commandsnext.4.1.0.nupkg.sha512",
+        "dsharpplus.commandsnext.4.2.0-nightly-01105.nupkg.sha512",
         "dsharpplus.commandsnext.nuspec",
         "dsharpplus.png",
         "lib/netstandard2.0/DSharpPlus.CommandsNext.dll",
         "lib/netstandard2.0/DSharpPlus.CommandsNext.xml"
       ]
     },
-    "DSharpPlus.Interactivity/4.1.0": {
-      "sha512": "FTQXMqGoWvGMox+UyybL0Jc/P12xTCIUfMRF0n3974Sa5QiwrqhDdP02lHmUS7k7dQF+vMY/YLjLyYdPB7hpFw==",
+    "DSharpPlus.Interactivity/4.2.0-nightly-01105": {
+      "sha512": "gkgEryORBaS15xpp9yVTpp162Lg24CzW/vLAJFhMDPtHB2ZOjmogsU3zK5t1dzQ8TvqxILJHZEIGwRSriJqUHg==",
       "type": "package",
-      "path": "dsharpplus.interactivity/4.1.0",
+      "path": "dsharpplus.interactivity/4.2.0-nightly-01105",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "dsharpplus.interactivity.4.1.0.nupkg.sha512",
+        "dsharpplus.interactivity.4.2.0-nightly-01105.nupkg.sha512",
         "dsharpplus.interactivity.nuspec",
         "dsharpplus.png",
         "lib/netstandard2.0/DSharpPlus.Interactivity.dll",
         "lib/netstandard2.0/DSharpPlus.Interactivity.xml"
       ]
     },
-    "DSharpPlus.Lavalink/4.1.0": {
-      "sha512": "xD53+Y5+Vmy66pttVWD9N7M3io9xo2rwHYvDL2EfOk0u1GAab3nNPB8ALAD4VWcJevSoSWoOBG4rZSfqutCUvg==",
+    "DSharpPlus.Lavalink/4.2.0-nightly-01091": {
+      "sha512": "XNek+xGbrXV4ZPlbcV3YhdFfidqP1Jjbc45INTFwJ9kOMkcp8SSpkLPZMYp/aGLrtAJocrjFb2yGWA0VhksiCQ==",
       "type": "package",
-      "path": "dsharpplus.lavalink/4.1.0",
+      "path": "dsharpplus.lavalink/4.2.0-nightly-01091",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
-        "dsharpplus.lavalink.4.1.0.nupkg.sha512",
+        "dsharpplus.lavalink.4.2.0-nightly-01091.nupkg.sha512",
         "dsharpplus.lavalink.nuspec",
         "dsharpplus.png",
         "lib/netstandard2.0/DSharpPlus.Lavalink.dll",
@@ -4069,6 +4078,32 @@
         "system.threading.nuspec"
       ]
     },
+    "System.Threading.Channels/5.0.0": {
+      "sha512": "RLBIxntLaG9pRmmuVDwY1kc8Bvp/FQzSxPU+19VekkScKkWtVP9r8bLhm28ama3usc816UBrmkg3vv3jUea/hw==",
+      "type": "package",
+      "path": "system.threading.channels/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Threading.Channels.dll",
+        "lib/net461/System.Threading.Channels.xml",
+        "lib/netcoreapp3.0/System.Threading.Channels.dll",
+        "lib/netcoreapp3.0/System.Threading.Channels.xml",
+        "lib/netstandard1.3/System.Threading.Channels.dll",
+        "lib/netstandard1.3/System.Threading.Channels.xml",
+        "lib/netstandard2.0/System.Threading.Channels.dll",
+        "lib/netstandard2.0/System.Threading.Channels.xml",
+        "lib/netstandard2.1/System.Threading.Channels.dll",
+        "lib/netstandard2.1/System.Threading.Channels.xml",
+        "system.threading.channels.5.0.0.nupkg.sha512",
+        "system.threading.channels.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Threading.Tasks/4.3.0": {
       "sha512": "LbSxKEdOUhVe8BezB/9uOGGppt+nZf6e1VFyw6v3DN6lqitm0OSn2uXMOdtP0M3W4iMcqcivm2J6UgqiwwnXiA==",
       "type": "package",
@@ -4279,10 +4314,10 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "DSharpPlus >= 4.1.0",
-      "DSharpPlus.CommandsNext >= 4.1.0",
-      "DSharpPlus.Interactivity >= 4.1.0",
-      "DSharpPlus.Lavalink >= 4.1.0"
+      "DSharpPlus >= 4.2.0-nightly-01105",
+      "DSharpPlus.CommandsNext >= 4.2.0-nightly-01105",
+      "DSharpPlus.Interactivity >= 4.2.0-nightly-01105",
+      "DSharpPlus.Lavalink >= 4.2.0-nightly-01091"
     ]
   },
   "packageFolders": {
@@ -4327,19 +4362,19 @@
         "dependencies": {
           "DSharpPlus": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[4.2.0-nightly-01105, )"
           },
           "DSharpPlus.CommandsNext": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[4.2.0-nightly-01105, )"
           },
           "DSharpPlus.Interactivity": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[4.2.0-nightly-01105, )"
           },
           "DSharpPlus.Lavalink": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[4.2.0-nightly-01091, )"
           }
         },
         "imports": [
@@ -4357,7 +4392,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

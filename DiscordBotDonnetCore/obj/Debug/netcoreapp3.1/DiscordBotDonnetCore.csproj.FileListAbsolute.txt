@@ -25,3 +25,4 @@ C:\Users\kitti\source\repos\DiscordBotDonnetCore\DiscordBotDonnetCore\obj\Debug\
 C:\Users\kitti\source\repos\DiscordBotDonnetCore\DiscordBotDonnetCore\bin\Debug\netcoreapp3.1\DSharpPlus.Lavalink.dll
 C:\Users\kitti\source\repos\DiscordBotDonnetCore\DiscordBotDonnetCore\obj\Debug\netcoreapp3.1\DiscordBotDonnetCore.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\kitti\source\repos\DiscordBotDonnetCore\DiscordBotDonnetCore\obj\Debug\netcoreapp3.1\DiscordBotDonnetCore.csproj.CopyComplete
+C:\Users\kitti\source\repos\DiscordBotDonnetCore\DiscordBotDonnetCore\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll

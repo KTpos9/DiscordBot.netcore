@@ -14,16 +14,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
+using System.Text.RegularExpressions;
 
 namespace DiscordBotDonnetCore
 {
     public class Bot
     {
+        private Regex r = new Regex(@"(จ|j).*(อ|o|0).*(ย|y)");
         public DiscordClient Client { get; private set; }
         public InteractivityExtension Interactivity { get; private set; }
         public CommandsNextExtension Commands { get; private set; }
         public Action<MemberEditModel> VoiceChannel { get; private set; }
-        char[] toneMark = { '่', '้', '๋', '๊', 'ี', 'ิ', 'ื', 'ุ', 'ู', '์', 'ํ', '็' };
         public async Task RunAsync()
         {
             var json = string.Empty;
@@ -41,18 +42,18 @@ namespace DiscordBotDonnetCore
                 MinimumLogLevel = LogLevel.Debug,
             };
             #region LAVALINK
-            //var endpoint = new ConnectionEndpoint
-            //{
-            //    Hostname = "127.0.0.1", // From your server configuration.
-            //    Port = 2333 // From your server configuration
-            //};
+            var endpoint = new ConnectionEndpoint
+            {
+                Hostname = "127.0.0.1", // From your server configuration.
+                Port = 2333 // From your server configuration
+            };
 
-            //var lavalinkConfig = new LavalinkConfiguration
-            //{
-            //    Password = "youshallnotpass", // From your server configuration.
-            //    RestEndpoint = endpoint,
-            //    SocketEndpoint = endpoint
-            //};
+            var lavalinkConfig = new LavalinkConfiguration
+            {
+                Password = "youshallnotpass", // From your server configuration.
+                RestEndpoint = endpoint,
+                SocketEndpoint = endpoint
+            };
             #endregion
 
             Client = new DiscordClient(config);
@@ -72,26 +73,26 @@ namespace DiscordBotDonnetCore
             Client.MessageCreated += async (s, e) => {
                 string message = e.Message.Content.ToLower().Trim();
                 string authorID = e.Author.Id.ToString();
-                await File.AppendAllTextAsync(@"Desktop\UserID", authorID);
-                
-                if(authorID == "697130665992257607")
+                //await File.AppendAllTextAsync(@"Desktop\UserID", authorID);
+                if (authorID == "697130665992257607")
                 {
-                    if (message.IndexOf("จ") > -1 && (message.IndexOf("อ") > -1 || message.IndexOf("o") > -1 || message.IndexOf("0") > -1 || message.IndexOfAny(toneMark) > -1)
-                        && message.IndexOf("ย") > -1 || (message.IndexOf("j") > -1 && message.IndexOf("y") > -1) || message.IndexOfAny(toneMark) > -1 ||
-                        message.IndexOf("test") > -1)
+                    if (r.IsMatch(message) == true)
                     {
                         await e.Message.DeleteAsync();
                     }
-                    else if (message.IndexOf("มึงว่า") > -1 && (message.IndexOf("สมมติว่า") > -1))
-                    {
-                        await e.Message.DeleteAsync();
-                    }
-                    else if (message.StartsWith("จ") || message.StartsWith("อ") || message.StartsWith("ย") ||
-                            message.StartsWith("j") || message.StartsWith("o") || message.StartsWith("y") || message.IndexOfAny(toneMark) > -1)
-                    {
-                        await e.Message.DeleteAsync();
-                    }
-                    await e.Message.DeleteAsync();
+                    #region old implimentation code
+                    //if (message.IndexOf("จ") > -1 && (message.IndexOf("อ") > -1 || message.IndexOf("o") > -1 || message.IndexOf("0") > -1 || message.IndexOfAny(toneMark) > -1)
+                    //    && message.IndexOf("ย") > -1 || (message.IndexOf("j") > -1 && message.IndexOf("y") > -1) || message.IndexOfAny(toneMark) > -1 ||
+                    //    message.IndexOf("test") > -1)
+                    //{
+                    //    await e.Message.DeleteAsync();
+                    //}
+                    //else if (message.StartsWith("จ") || message.StartsWith("อ") || message.StartsWith("ย") ||
+                    //        message.StartsWith("j") || message.StartsWith("o") || message.StartsWith("y") || message.IndexOfAny(toneMark) > -1)
+                    //{
+                    //    await e.Message.DeleteAsync();
+                    //}
+                    #endregion
                 }
             };
             Client.MessageUpdated += async (s, e) =>
@@ -100,21 +101,23 @@ namespace DiscordBotDonnetCore
                 string authorID = e.Author.Id.ToString();
                 if (authorID == "697130665992257607")
                 {
-                    if (message.IndexOf("จ") > -1 && (message.IndexOf("อ") > -1 || message.IndexOf("o") > -1 || message.IndexOf("0") > -1 || message.IndexOfAny(toneMark) > -1)
-                        && message.IndexOf("ย") > -1 || (message.IndexOf("j") > -1 && message.IndexOf("y") > -1) ||
-                        message.IndexOf("test") > -1)
+                    if (r.IsMatch(message) == true)
                     {
                         await e.Message.DeleteAsync();
                     }
                 }
             };
             #endregion
+            
+            var lavalink = Client.UseLavalink();//
+           
+            await Client.ConnectAsync();//
+            await lavalink.ConnectAsync(lavalinkConfig);//
+
             Commands = Client.UseCommandsNext(commandsConfig);
-            var lavalink = Client.UseLavalink();
+            Commands.RegisterCommands<Commands>();
             Commands.RegisterCommands<MusicCommands>();
 
-            await Client.ConnectAsync();
-            //await lavalink.ConnectAsync(lavalinkConfig);
             await Task.Delay(-1);
         }
 
@@ -122,6 +125,5 @@ namespace DiscordBotDonnetCore
         {
             return Task.CompletedTask;
         }
-
     }
 }
