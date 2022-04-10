@@ -161,12 +161,6 @@ namespace DiscordBotDonnetCore
                 return;
             }
 
-            if (conn.CurrentState.CurrentTrack == null)
-            {
-                await ctx.RespondAsync("There are no tracks loaded.");
-                return;
-            }
-
             await conn.StopAsync();
             await conn.DisconnectAsync();
         }
