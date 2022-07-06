@@ -59,6 +59,10 @@ namespace DiscordBotDonnetCore
                 await ctx.RespondAsync("Not a valid voice channel.");
                 return;
             }
+            //if(node.ConnectedGuilds == null)
+            //{
+            //    await node.ConnectAsync(channel);
+            //}
             await node.ConnectAsync(channel);
             #endregion
             var guild = ctx.Member.VoiceState.Guild;
@@ -79,6 +83,7 @@ namespace DiscordBotDonnetCore
                 return;
             }
             var track = loadResult.Tracks.First();
+            
 
             await conn.PlayAsync(track);
 
