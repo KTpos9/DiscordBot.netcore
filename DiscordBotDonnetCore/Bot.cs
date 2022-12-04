@@ -22,9 +22,7 @@ namespace DiscordBotDonnetCore
     {
         private Regex r = new Regex(@"(จ|j).*(อ|o|0).*(ย|y)");
         public DiscordClient Client { get; private set; }
-        public InteractivityExtension Interactivity { get; private set; }
         public CommandsNextExtension Commands { get; private set; }
-        public Action<MemberEditModel> VoiceChannel { get; private set; }
         public async Task RunAsync()
         {
             var json = string.Empty;
