@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>c2c55cea-6d25-4fae-ad6a-7ebb4a627d35</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +11,7 @@
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.2.0-nightly-01105" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="4.2.0-nightly-01105" />
     <PackageReference Include="DSharpPlus.Lavalink" Version="4.2.0-nightly-01091" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
 
 </Project>

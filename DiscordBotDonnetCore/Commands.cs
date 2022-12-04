@@ -41,9 +41,8 @@ namespace DiscordBotDonnetCore
                 if (result.Count >= userCounts)
                 {
                     //kick user
-                    MemberEditModel kick;
                     Action<MemberEditModel> action;
-                    action = (kick) => { kick.VoiceChannel = null; };
+                    action = (member) => { member.VoiceChannel = null; };
                     await user.ModifyAsync(action);
                     await ctx.Channel.SendMessageAsync($"{user.Username} disconnected");
                 }
