@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using System.Text.RegularExpressions;
+using DSharpPlus.SlashCommands;
 
 namespace DiscordBotDonnetCore
 {
@@ -23,11 +24,12 @@ namespace DiscordBotDonnetCore
         private Regex r = new Regex(@"(จ|j).*(อ|o|0).*(ย|y)");
         public DiscordClient Client { get; private set; }
         public CommandsNextExtension Commands { get; private set; }
+        public SlashCommandsExtension slash { get; private set; }
         public async Task RunAsync()
         {
             var json = string.Empty;
 
-            using (var fs = File.OpenRead(@"C:\Users\kitti\source\repos\DiscordBotDonnetCore\DiscordBotDonnetCore\config.json"))
+            using (var fs = File.OpenRead(@"C:\Users\kitti\source\repos\DiscordBot.netCore\DiscordBotDonnetCore\config.json"))
             using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
                 json = await sr.ReadToEndAsync().ConfigureAwait(false);
 
@@ -37,6 +39,7 @@ namespace DiscordBotDonnetCore
                 Token = configJson.Token,
                 TokenType = TokenType.Bot,
                 AutoReconnect = true,
+                Intents = DiscordIntents.All,
                 MinimumLogLevel = LogLevel.Debug,
             };
             #region LAVALINK
@@ -108,7 +111,12 @@ namespace DiscordBotDonnetCore
             #endregion
             
             var lavalink = Client.UseLavalink();//
-           
+            
+            slash = Client.UseSlashCommands();
+            slash.RegisterCommands<SlashCommand>();
+            slash.RegisterCommands<MusicSlashCommands>(959281646622900244);
+            slash.RegisterCommands<MusicSlashCommands>(822847772201713684);
+
             await Client.ConnectAsync();//
             await lavalink.ConnectAsync(lavalinkConfig);//
 
