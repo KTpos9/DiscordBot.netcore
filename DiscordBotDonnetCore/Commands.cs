@@ -16,6 +16,7 @@ namespace DiscordBotDonnetCore
         [Command("kword")]
         public async Task KWord(CommandContext ctx)
         {
+            //await ctx.RespondAsync("krai");
             await ctx.Channel.SendMessageAsync("krai");
         }
         [Command("vote")]
