@@ -16,6 +16,8 @@ using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using System.Text.RegularExpressions;
 using DSharpPlus.SlashCommands;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace DiscordBotDonnetCore
 {
@@ -27,6 +29,13 @@ namespace DiscordBotDonnetCore
         public SlashCommandsExtension slash { get; private set; }
         public async Task RunAsync()
         {
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console(restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose)
+            .WriteTo.File("log.txt", outputTemplate:"{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+            .CreateLogger();
+
+            var logFactory = new LoggerFactory().AddSerilog();
+
             var json = string.Empty;
 
             using (var fs = File.OpenRead(@"C:\Users\kitti\source\repos\DiscordBot.netCore\DiscordBotDonnetCore\config.json"))
@@ -41,6 +50,7 @@ namespace DiscordBotDonnetCore
                 AutoReconnect = true,
                 Intents = DiscordIntents.All,
                 MinimumLogLevel = LogLevel.Debug,
+                LoggerFactory = logFactory
             };
             #region LAVALINK
             var endpoint = new ConnectionEndpoint
@@ -58,7 +68,7 @@ namespace DiscordBotDonnetCore
             #endregion
 
             Client = new DiscordClient(config);
-            //Client.Ready += OnClientReady;
+            Client.Ready += Client_Ready;
 
             Client.UseInteractivity(new InteractivityConfiguration {
                 Timeout = TimeSpan.FromMinutes(2)
@@ -127,8 +137,9 @@ namespace DiscordBotDonnetCore
             await Task.Delay(-1);
         }
 
-        private Task OnClientReady(ReadyEventArgs e)
+        private Task Client_Ready(DiscordClient sender, ReadyEventArgs e)
         {
+            Console.WriteLine("Bot ready!");
             return Task.CompletedTask;
         }
     }
