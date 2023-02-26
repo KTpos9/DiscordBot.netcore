@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using DSharpPlus.Lavalink;
 using DSharpPlus;
 using DSharpPlus.SlashCommands;
-using DSharpPlus.CommandsNext;
 
 namespace DiscordBotDonnetCore
 {
+    [SlashModuleLifespan(SlashModuleLifespan.Singleton)]
     public class MusicSlashCommands : ApplicationCommandModule
     {
+        private LavalinkGuildConnection Conn { get; set; }
+        private LavalinkNodeConnection Node { get; set; }
+        private bool EnableLoop { get; set; } = false;
+        private LavalinkTrack Track { get; set; }
+
         [SlashCommand("play","play song from given URL")]
         public async Task Play(InteractionContext ctx, [Option("URL","Song URL")] string url)
         {
@@ -30,7 +35,7 @@ namespace DiscordBotDonnetCore
                 return;
             }
 
-            var node = lava.ConnectedNodes.Values.First();
+            this.Node = lava.ConnectedNodes.Values.First();
 
             if (channel.Type != ChannelType.Voice)
             {
@@ -41,18 +46,18 @@ namespace DiscordBotDonnetCore
             //{
             //    await node.ConnectAsync(channel);
             //}
-            await node.ConnectAsync(channel);
+            await this.Node.ConnectAsync(channel);
             #endregion
             var guild = ctx.Member.VoiceState.Guild;
-            LavalinkGuildConnection conn = node.GetGuildConnection(guild);
+            this.Conn = this.Node.GetGuildConnection(guild);
 
-            if (conn == null)
+            if (this.Conn == null)
             {
                 await ctx.CreateResponseAsync("Lavalink is not connected.");
                 return;
             }
 
-            var loadResult = await node.Rest.GetTracksAsync(url);
+            var loadResult = await this.Node.Rest.GetTracksAsync(url);
 
             if (loadResult.LoadResultType == LavalinkLoadResultType.LoadFailed
                 || loadResult.LoadResultType == LavalinkLoadResultType.NoMatches)
@@ -60,12 +65,12 @@ namespace DiscordBotDonnetCore
                 await ctx.CreateResponseAsync($"Track search failed for {url}.");
                 return;
             }
-            var track = loadResult.Tracks.First();
+            Track = loadResult.Tracks.First();
 
 
-            await conn.PlayAsync(track);
+            await this.Conn.PlayAsync(Track);
 
-            await ctx.CreateResponseAsync($"Now playing {track.Title}!");
+            await ctx.CreateResponseAsync($"Now playing {Track.Title}!");
         }
         [SlashCommand("pause","pause the song that are currently playing")]
         public async Task Pause(InteractionContext ctx)
@@ -77,25 +82,27 @@ namespace DiscordBotDonnetCore
             }
 
             var lava = ctx.Client.GetLavalink();
-            var node = lava.ConnectedNodes.Values.First();
-            var conn = node.GetGuildConnection(ctx.Member.VoiceState.Guild);
+            this.Node = lava.ConnectedNodes.Values.First();
+            this.Conn = this.Node.GetGuildConnection(ctx.Member.VoiceState.Guild);
 
-            if (conn == null)
+            if (this.Conn == null)
             {
                 await ctx.CreateResponseAsync("Lavalink is not connected.");
                 return;
             }
 
-            if (conn.CurrentState.CurrentTrack == null)
+            if (this.Conn.CurrentState.CurrentTrack == null)
             {
                 await ctx.CreateResponseAsync("There are no tracks loaded.");
                 return;
             }
 
-            await conn.PauseAsync();
+            await this.Conn.PauseAsync();
+            await ctx.CreateResponseAsync("track paused");
         }
-        [SlashCommand("dis","disconnect the bot from this channel")]
-        public async Task Disconnect(InteractionContext ctx)
+
+        [SlashCommand("resume","resume the paused track")]
+        public async Task Resume(InteractionContext ctx)
         {
             if (ctx.Member.VoiceState == null || ctx.Member.VoiceState.Channel == null)
             {
@@ -104,18 +111,94 @@ namespace DiscordBotDonnetCore
             }
 
             var lava = ctx.Client.GetLavalink();
-            var node = lava.ConnectedNodes.Values.First();
-            var conn = node.GetGuildConnection(ctx.Member.VoiceState.Guild);
+            this.Node = lava.ConnectedNodes.Values.First();
+            this.Conn = this.Node.GetGuildConnection(ctx.Member.VoiceState.Guild);
 
-            if (conn == null)
+            if (this.Conn == null)
             {
                 await ctx.CreateResponseAsync("Lavalink is not connected.");
                 return;
             }
 
-            await conn.StopAsync();
-            await conn.DisconnectAsync();
+            if (this.Conn.CurrentState.CurrentTrack == null)
+            {
+                await ctx.CreateResponseAsync("There are no tracks loaded.");
+                return;
+            }
+
+            await this.Conn.ResumeAsync();
+            await ctx.CreateResponseAsync("track resumed");
+        }
+
+        [SlashCommand("dis","disconnect the bot from this channel")]
+        public async Task Disconnect(InteractionContext ctx)
+        {
+            if (ctx.Member.VoiceState == null || ctx.Member.VoiceState.Channel == null)
+            {
+                await ctx.CreateResponseAsync("You are not in a voice channel.");
+                return;
+            }
+            //not necessery for singleton 
+            var lava = ctx.Client.GetLavalink();
+            this.Node = lava.ConnectedNodes.Values.First();
+            this.Conn = this.Node.GetGuildConnection(ctx.Member.VoiceState.Guild);
+
+            if (this.Conn == null)
+            {
+                await ctx.CreateResponseAsync("Lavalink is not connected.");
+                return;
+            }
+
+            await this.Conn.StopAsync();
+            await this.Conn.DisconnectAsync();
             await ctx.CreateResponseAsync("Bot Disconnected");
+        }
+
+        [SlashCommand("seek", "seek the track to specify time")]
+        public async Task Seek(InteractionContext ctx, [Option("time", "time")] double time)
+        {
+            if (this.Conn == null) return;
+            await this.Conn.SeekAsync(TimeSpan.FromMinutes(time));
+            await ctx.CreateResponseAsync("seeked");
+        }
+
+
+        [SlashCommand("loop","loop the song")]
+        public async Task Loop(InteractionContext ctx)
+        {
+            //not necessery for singleton 
+            var lava = ctx.Client.GetLavalink();
+            this.Node = lava.ConnectedNodes.Values.First();
+            this.Conn = this.Node.GetGuildConnection(ctx.Member.VoiceState.Guild);
+
+            if (ctx.Member.VoiceState == null || ctx.Member.VoiceState.Channel == null)
+            {
+                await ctx.CreateResponseAsync("You are not in a voice channel.");
+                return;
+            }
+            if (this.Conn.CurrentState.CurrentTrack == null)
+            {
+                await ctx.CreateResponseAsync("There are no tracks loaded.");
+                return;
+            }
+            EnableLoop = true;
+            if (EnableLoop)
+            {
+                this.Conn.PlaybackFinished += Conn_PlaybackFinished;
+                await ctx.CreateResponseAsync("loop enabled!");
+            }
+            else
+            {
+                EnableLoop = false;
+
+
+                await ctx.CreateResponseAsync("loop disabled");
+            }
+        }
+
+        private async Task Conn_PlaybackFinished(LavalinkGuildConnection sender, DSharpPlus.Lavalink.EventArgs.TrackFinishEventArgs e)
+        {
+            await this.Conn.PlayAsync(Track);
         }
     }
 }
