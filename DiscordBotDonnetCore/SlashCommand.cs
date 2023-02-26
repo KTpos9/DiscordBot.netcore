@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DSharpPlus;
 using DSharpPlus.SlashCommands;
 
 namespace DiscordBotDonnetCore
@@ -12,7 +13,8 @@ namespace DiscordBotDonnetCore
         [SlashCommand("test","test command")]
         public async Task Test(InteractionContext ctx)
         {
-            await ctx.CreateResponseAsync("it works");
+            await ctx.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
+            await ctx.EditResponseAsync(new DSharpPlus.Entities.DiscordWebhookBuilder().WithContent("it works"));
         }
     }
 }
