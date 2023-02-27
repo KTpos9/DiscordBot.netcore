@@ -6,7 +6,7 @@ Discord bot build with DSharpplus library, Written in C#.
 #### Music
 | Command  | Description                                              |
 | -------- | -------------------------------------------------------- |
-| `/play`  | Play song from the given URL(Youtube or Soundcloud)      |
+| `/play`  | Play song from the given URL (Youtube or Soundcloud)     |
 | `/pause` | Pause the song that are currently playing                |
 | `/dis`   | Disconnect the bot from the channel that it currently in |
 | `/loop`  | Loop the song that are currently playing                 |
