@@ -2,10 +2,11 @@
 Discord bot build with DSharpplus library, Written in C#.
 
 ## Commands
-### Slash commands
+### Slash Commands
 #### Music
 | Command  | Description                                              |
 | -------- | -------------------------------------------------------- |
+| `/join`  | Make bot join the voice channel that you are currently in|
 | `/play`  | Play song from the given URL (Youtube or Soundcloud)     |
 | `/pause` | Pause the song that are currently playing                |
 | `/dis`   | Disconnect the bot from the channel that it currently in |
