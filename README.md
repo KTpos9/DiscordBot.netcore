@@ -1,5 +1,22 @@
 # DiscordBot.netcore
 Discord bot build with DSharpplus library, Written in C#.
+
+## Commands
+### Slash commands
+#### Music
+| Command  | Description                                              |
+| -------- | -------------------------------------------------------- |
+| `/play`  | Play song from the given URL                             |
+| `/pause` | Pause the song that are currently playing                |
+| `/dis`   | Disconnect the bot from the channel that it currently in |
+| `/loop`  | Loop the song that are currently playing                 |
+
+### Non-Slash Commands
+| Command  | Description                                       |
+| -------- | ------------------------------------------------- |
+| `vote`   | Vote to disconnect a member in the voice channel  |
+| `member` | Get amount of member currently in a voice channel |
+
 ## Setup
 
 ### Lavalink
