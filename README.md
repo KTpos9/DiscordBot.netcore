@@ -3,7 +3,12 @@ Discord bot build with DSharpplus library, Written in C#.
 ## Setup
 
 ### Lavalink
-[Download](https://github.com/freyacodes/Lavalink/releases) Lavalink and run it before starting the bot or the music commands will not work.
+RUN Lavalink before starting the bot or the music commands will not work.
+1. Download [Lavalink](https://github.com/freyacodes/Lavalink/releases)
+2. Open the terminal in the Lavalink directory and run  
+```
+java -jar Lavalink.jar
+```
 
 ### Config
 add config.json file to the root directory of the project.
